@@ -26,19 +26,19 @@ function playRound(humanChoice, computerChoice) {
     }
 }
 
-const btns = document.querySelectorAll('button');
+const imgs = document.querySelectorAll('#choices img');
 const playerChoiceImg = document.querySelector('#player-choice-img');
 const computerChoiceImg = document.querySelector('#computer-choice-img');
 const resultText = document.querySelector('#result-text');
 const scoreCount = document.querySelector('#score-count');
 
-btns.forEach((btn) => {
-    btn.addEventListener('click', () => {
+imgs.forEach((img) => {
+    img.addEventListener('click', () => {
         // Reset transforms from previous rounds.
         playerChoiceImg.style.transform = '';
         computerChoiceImg.style.transform = '';
 
-        const humanChoice = btn.id;
+        const humanChoice = img.id;
         const computerChoice = getComputerChoice();
         const result = playRound(humanChoice, computerChoice);
         resultText.textContent = result;
@@ -83,14 +83,14 @@ btns.forEach((btn) => {
                 { transform: `translate(0, 0) rotate(-${finalRotate}deg)` }
             ],
             {
-                duration: 1000,
+                duration: 1500,
                 easing: 'ease-out',
                 fill: 'forwards'
             }
         );
 
         const randomAngle = Math.random() * 2 * Math.PI;
-        const distance = 1500;
+        const distance = 1000;
         const exitX = Math.cos(randomAngle) * distance;
         const exitY = Math.sin(randomAngle) * distance;
 
@@ -102,8 +102,8 @@ btns.forEach((btn) => {
                 { transform: `translate(${exitX}px, ${exitY}px) rotate(${(randomAngle * 180) / Math.PI}deg)`, opacity: 0, offset: 1 }
             ],
             {
-                duration: 1100, // Faster animation.
-                easing: 'ease-in-out',
+                duration: 1450, // Faster animation.
+                easing: 'ease',
                 fill: 'forwards'
             }
         );
