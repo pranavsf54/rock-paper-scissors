@@ -10,18 +10,7 @@ function getComputerChoice() {
             return 'paper';
         case 2:
             return 'scissors';
-  }
-}
-
-function getHumanChoice() {
-    let humanChoice = prompt('Please enter your choice: rock, paper, or scissors.');
-    let lower = humanChoice.toLowerCase();
-    while (lower !== 'rock' && lower !== 'paper' && lower !== 'scissors') {
-        console.log('Invalid choice. Please enter rock, paper, or scissors.');
-        humanChoice = prompt('Please enter your choice: rock, paper, or scissors.');
-        lower = humanChoice.toLowerCase();
     }
-    return lower;
 }
 
 function playRound(humanChoice, computerChoice) {
@@ -61,4 +50,17 @@ function playGame() {
     }
 }
 
-playGame();
+const btns = document.querySelectorAll('button');
+const player_choice_img = document.querySelector('#player-choice-img');
+const computer_choice_img = document.querySelector('#computer-choice-img');
+const result_text = document.querySelector('#result-text');
+
+btns.forEach((btn) => {
+    btn.addEventListener('click', () => {
+        humanChoice = btn.id;
+        computerChoice = getComputerChoice();
+        result_text.textContent = playRound(humanChoice, computerChoice);
+        player_choice_img.src = `images/${btn.id}.webp`;
+        computer_choice_img.src = `images/${computerChoice}.webp`;
+    });
+});

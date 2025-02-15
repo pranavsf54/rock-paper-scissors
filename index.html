@@ -1,11 +1,51 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>rock-paper-scissors</title>
+    <script src="script.js" defer></script>
+    <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
-    <script src="script.js"></script>
+    <div id="game">
+        <div id="score">
+            <h2>Score</h2>
+            <p id="score-count">0</p>
+        </div>
+        <div id="result">
+            <h2>Result</h2>
+            <div id="result-icons">
+                <div id="player-choice">
+                    <h3>You picked</h3>
+                    <img src="images/question-mark.png" alt="Question mark" id="player-choice-img">
+                </div>
+                <div id="computer-choice">
+                    <h3>The house picked</h3>
+                    <img src="images/question-mark.png" alt="Question mark" id="computer-choice-img">
+                </div>
+            </div>
+            <p id="result-text">Make your move</p>
+        </div>
+        <div id="choices">
+            <div class="choice">
+                <img src="images/rock.webp" alt="Rock">
+                <button id="rock">Rock</button>
+            </div>
+            <div class="choice">
+                <img src="images/paper.webp" alt="Paper">
+                <button id="paper">Paper</button>
+            </div>
+            <div class="choice">
+                <img src="images/scissors.webp" alt="Scissors">
+                <button id="scissors">Scissors</button>
+            </div>
+            
+            
+        </div>
+    </div>
 </body>
+
 </html>
