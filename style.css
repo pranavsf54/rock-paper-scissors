@@ -1,11 +1,8 @@
 :root {
-    --bg-color: #ECEFF1;        /* Soft gray-blue */
-    --score-color: #3F51B5;     /* Indigo for the score bar */
-    --section-bg-color: #E8EAF6;/* Light indigo for result & choices */
-    --border-color: #dcdcdc;
-    --accent-color: #ffca28;
-    --text-color: #333333;
-    --heading-color: #444444;
+    /* A red→orange→yellow gradient that complements red question marks and yellow emojis */
+    --bg-gradient: linear-gradient(135deg, #D32F2F 0%, #F57C00 40%, #FBC02D 100%);
+    --section-bg-color: rgba(255, 255, 255, 0.2); /* Translucent white overlay */
+    --text-color: #FFFFFF;                       /* White text for contrast */
 }
 
 /* Base Styles */
@@ -14,11 +11,13 @@
     box-sizing: border-box;
 }
 
-body {
+html, body {
     margin: 0;
     padding: 0;
     font-family: 'Poppins', sans-serif;
-    background-color: var(--bg-color);
+    background: var(--bg-gradient);
+    color: var(--text-color);
+    overflow-x: hidden;
 }
 
 #game {
@@ -38,21 +37,36 @@ body {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    font-size: 1.5rem;
     background-color: var(--section-bg-color);
+    border-radius: 8px;
+    margin: 0.5rem;
+    padding: 1rem;
+    text-align: center;
 }
 
-#score {
-    background-color: var(--score-color); /* #4caf50 */
-    color: #fff;
-}
-
-#score h2 {
-    margin-bottom: 5px;
+#score h2, #result h2, #choices h2 {
+    margin-bottom: 0.5rem;
+    color: var(--text-color);
 }
 
 #score p {
     margin-top: 0;
+}
+
+#result-icons {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    width: 100vw;
+    margin-top: -50px;
+}
+
+#result-icons img {
+    /* Let the width scale between 80px and 150px, using 15% of the viewport width as the preferred size */
+    width: clamp(80px, 15vw, 150px);
+    height: auto;
+    display: block;
 }
 
 #choices {
@@ -60,11 +74,18 @@ body {
 }
 
 #choices img {
-    width: 120px;
-    height: 120px;
+    /* Let the width scale between 80px and 150px, using 15% of the viewport width as the preferred size */
+    width: clamp(80px, 15vw, 150px);
+    height: auto;
     margin: 0 1rem;
     cursor: pointer;
     transition: transform 0.3s ease;
+    animation: pulse 0.5s infinite alternate;
+}
+
+/* Pause pulse animation when the .paused class is applied */
+#choices img.paused {
+    animation-play-state: paused;
 }
 
 #choices img:hover {
@@ -79,24 +100,22 @@ body {
     gap: 1rem;
 }
 
-#result-icons {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 1rem;
-    width: 100vw;
-    margin-top: -50px;
-}
-
-#result-icons img {
-    width: 100px;
-    height: 100px;
-}
-
 #player-choice,
 #computer-choice {
     display: flex;
     flex-direction: column;
     align-items: center;
     padding: 1rem;
+    justify-content: center;
+    text-align: center;
+    flex: 1;
+}
+
+@keyframes pulse {
+    from {
+        scale: 1;
+    }
+    to {
+        scale: 1.1;
+    }
 }

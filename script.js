@@ -34,6 +34,9 @@ const scoreCount = document.querySelector('#score-count');
 
 imgs.forEach((img) => {
     img.addEventListener('click', () => {
+        // Pause the pulse animation on all choice images.
+        imgs.forEach(img => img.classList.add('paused'));
+
         // Reset previous transforms.
         playerChoiceImg.style.transform = '';
         computerChoiceImg.style.transform = '';
@@ -64,7 +67,16 @@ imgs.forEach((img) => {
             scoreCount.textContent = humanScore - computerScore;
 
             // If it's a tie, no further animation is needed.
-            if (result === "It's a tie!") return;
+            if (result === "It's a tie!") {
+                setTimeout(() => {
+                    // Reset images back to question marks.
+                    playerChoiceImg.src = "images/question-mark.svg";
+                    computerChoiceImg.src = "images/question-mark.svg";
+                    // Resume pulse animation.
+                    imgs.forEach(img => img.classList.remove('paused'));
+                }, 1000);
+                return;
+            } 
 
             // Determine winner and loser elements.
             let winnerElem, loserElem, isHumanWinner;
@@ -110,7 +122,7 @@ imgs.forEach((img) => {
 
             // Animate the loser.
             const randomAngle = Math.random() * 2 * Math.PI;
-            const distance = 1000;
+            const distance = 600;
             const exitX = Math.cos(randomAngle) * distance;
             const exitY = Math.sin(randomAngle) * distance;
 
@@ -138,6 +150,8 @@ imgs.forEach((img) => {
                 computerChoiceImg.style.transform = '';
                 playerChoiceImg.style.opacity = 1;
                 computerChoiceImg.style.opacity = 1;
+                // Resume pulse animation on choice images.
+                imgs.forEach(img => img.classList.remove('paused'));
             };
 
         }, 1500);
