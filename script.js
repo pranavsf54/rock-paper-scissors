@@ -34,90 +34,112 @@ const scoreCount = document.querySelector('#score-count');
 
 imgs.forEach((img) => {
     img.addEventListener('click', () => {
-        // Reset transforms from previous rounds.
+        // Reset previous transforms.
         playerChoiceImg.style.transform = '';
         computerChoiceImg.style.transform = '';
 
         const humanChoice = img.id;
         const computerChoice = getComputerChoice();
-        const result = playRound(humanChoice, computerChoice);
-        resultText.textContent = result;
-        scoreCount.textContent = humanScore - computerScore;
 
-        // Update images.
-        playerChoiceImg.src = `images/${humanChoice}.svg`;
-        computerChoiceImg.src = `images/${computerChoice}.svg`;
+        // Immediately update the player's image.
+        playerChoiceImg.src = `./images/${humanChoice}.svg`;
 
-        let winnerElem, loserElem, isHumanWinner;
-        if (result.includes("win!")) {
-            winnerElem = playerChoiceImg;
-            loserElem = computerChoiceImg;
-            isHumanWinner = true;
-        } else if (result.includes("lose")) {
-            winnerElem = computerChoiceImg;
-            loserElem = playerChoiceImg;
-            isHumanWinner = false;
-        } else {
-            return;
-        }
+        // Start cycling animation for computer's choice.
+        const choices = ['rock', 'paper', 'scissors'];
+        let cycleIndex = 0;
+        const cycleInterval = 100; // Change image every 100ms.
+        const cycleAnimation = setInterval(() => {
+            computerChoiceImg.src = `./images/${choices[cycleIndex % choices.length]}.svg`;
+            cycleIndex++;
+        }, cycleInterval);
 
-        const winnerRect = winnerElem.getBoundingClientRect();
-        const loserRect = loserElem.getBoundingClientRect();
-        const winnerCenterX = winnerRect.left + winnerRect.width / 2;
-        const winnerCenterY = winnerRect.top + winnerRect.height / 2;
-        const loserCenterX = loserRect.left + loserRect.width / 2;
-        const loserCenterY = loserRect.top + loserRect.height / 2;
-        const deltaX = loserCenterX - winnerCenterX;
-        const deltaY = loserCenterY - winnerCenterY;
+        // Stop cycling after 1.5 seconds.
+        setTimeout(() => {
+            clearInterval(cycleAnimation);
+            // Reveal computer's actual choice.
+            computerChoiceImg.src = `./images/${computerChoice}.svg`;
 
-        const phase1X = isHumanWinner ? -20 : 20;
-        const phase1Y = 0;
-        const phase1Rotate = isHumanWinner ? 30 : -30;
-        const finalRotate = isHumanWinner ? -30 : 30;
+            const result = playRound(humanChoice, computerChoice);
+            resultText.textContent = result;
+            scoreCount.textContent = humanScore - computerScore;
 
-        const winnerAnimation = winnerElem.animate(
-            [
-                { transform: 'translate(0, 0) rotate(0deg)' },
-                { transform: `translate(${phase1X}px, ${phase1Y}px) rotate(${phase1Rotate}deg)`, offset: 0.5 },
-                { transform: `translate(${deltaX}px, ${deltaY}px) rotate(${finalRotate}deg)`, offset: 0.7 },
-                { transform: `translate(0, 0) rotate(-${finalRotate}deg)` }
-            ],
-            {
-                duration: 1500,
-                easing: 'ease-out',
-                fill: 'forwards'
+            // If it's a tie, no further animation is needed.
+            if (result === "It's a tie!") return;
+
+            // Determine winner and loser elements.
+            let winnerElem, loserElem, isHumanWinner;
+            if (result.includes("win!")) {
+                winnerElem = playerChoiceImg;
+                loserElem = computerChoiceImg;
+                isHumanWinner = true;
+            } else if (result.includes("lose")) {
+                winnerElem = computerChoiceImg;
+                loserElem = playerChoiceImg;
+                isHumanWinner = false;
             }
-        );
 
-        const randomAngle = Math.random() * 2 * Math.PI;
-        const distance = 1000;
-        const exitX = Math.cos(randomAngle) * distance;
-        const exitY = Math.sin(randomAngle) * distance;
+            // Calculate centers for animation paths.
+            const winnerRect = winnerElem.getBoundingClientRect();
+            const loserRect = loserElem.getBoundingClientRect();
+            const winnerCenterX = winnerRect.left + winnerRect.width / 2;
+            const winnerCenterY = winnerRect.top + winnerRect.height / 2;
+            const loserCenterX = loserRect.left + loserRect.width / 2;
+            const loserCenterY = loserRect.top + loserRect.height / 2;
+            const deltaX = loserCenterX - winnerCenterX;
+            const deltaY = loserCenterY - winnerCenterY;
 
-        const loserAnimation = loserElem.animate(
-            [
-                { transform: 'translate(0, 0) rotate(0deg)', opacity: 1, offset: 0.7 },
-                // Remains fully opaque until 90% of the animation.
-                { transform: `translate(${exitX * 0.9}px, ${exitY * 0.9}px) rotate(${(randomAngle * 180) / Math.PI + 10}deg)`, opacity: 1, offset: 0.9 },
-                { transform: `translate(${exitX}px, ${exitY}px) rotate(${(randomAngle * 180) / Math.PI}deg)`, opacity: 0, offset: 1 }
-            ],
-            {
-                duration: 1450, // Faster animation.
-                easing: 'ease',
-                fill: 'forwards'
-            }
-        );
+            const phase1X = isHumanWinner ? -20 : 20;
+            const phase1Y = 0;
+            const phase1Rotate = isHumanWinner ? 30 : -30;
+            const finalRotate = isHumanWinner ? -30 : 30;
 
-        loserAnimation.onfinish = () => {
-            winnerAnimation.cancel();
-            loserAnimation.cancel();
+            // Animate the winner.
+            const winnerAnimation = winnerElem.animate(
+                [
+                    { transform: 'translate(0, 0) rotate(0deg)' },
+                    { transform: `translate(${phase1X}px, ${phase1Y}px) rotate(${phase1Rotate}deg)`, offset: 0.5 },
+                    { transform: `translate(${deltaX}px, ${deltaY}px) rotate(${finalRotate}deg)`, offset: 0.7 },
+                    { transform: `translate(0, 0) rotate(0deg)` }
+                ],
+                {
+                    duration: 1500,
+                    easing: 'ease-out',
+                    fill: 'forwards'
+                }
+            );
 
-            playerChoiceImg.src = "images/question-mark.svg";
-            computerChoiceImg.src = "images/question-mark.svg";
-            playerChoiceImg.style.transform = '';
-            computerChoiceImg.style.transform = '';
-            playerChoiceImg.style.opacity = 1;
-            computerChoiceImg.style.opacity = 1;
-        };
+            // Animate the loser.
+            const randomAngle = Math.random() * 2 * Math.PI;
+            const distance = 1000;
+            const exitX = Math.cos(randomAngle) * distance;
+            const exitY = Math.sin(randomAngle) * distance;
+
+            const loserAnimation = loserElem.animate(
+                [
+                    { transform: 'translate(0, 0) rotate(0deg)', opacity: 1, offset: 0.7 },
+                    { transform: `translate(${exitX * 0.9}px, ${exitY * 0.9}px) rotate(${(randomAngle * 180) / Math.PI + 10}deg)`, opacity: 1, offset: 0.9 },
+                    { transform: `translate(${exitX}px, ${exitY}px) rotate(${(randomAngle * 180) / Math.PI}deg)`, opacity: 0, offset: 1 }
+                ],
+                {
+                    duration: 1500,
+                    easing: 'ease',
+                    fill: 'forwards'
+                }
+            );
+
+            loserAnimation.onfinish = () => {
+                winnerAnimation.cancel();
+                loserAnimation.cancel();
+
+                // Reset images back to question marks.
+                playerChoiceImg.src = "images/question-mark.svg";
+                computerChoiceImg.src = "images/question-mark.svg";
+                playerChoiceImg.style.transform = '';
+                computerChoiceImg.style.transform = '';
+                playerChoiceImg.style.opacity = 1;
+                computerChoiceImg.style.opacity = 1;
+            };
+
+        }, 1500);
     });
 });
