@@ -35,17 +35,27 @@ function playRound(humanChoice, computerChoice) {
 }
 
 function animateHeartLoss(heartElement) {
-  // Get heart’s position
-  const rect = heartElement.getBoundingClientRect();
+  // Get the container for this heart (the .heart-container)
+  const container = heartElement.parentElement;
+
+  // Create the cross element.
   const cross = document.createElement("span");
   cross.classList.add("cross");
-  cross.style.color = "black";
   cross.textContent = "✕";
-  cross.style.left = rect.left + "px";
-  cross.style.top = rect.top - 10 + "px";
-  document.body.appendChild(cross);
+  cross.style.color = "black";
+  cross.style.position = "absolute"; // positioning relative to .heart-container
 
-  // Once the cross animation ends, remove it and hide the heart.
+  // Center the cross using CSS.
+  cross.style.left = "15%";
+  cross.style.top = "25%";
+  cross.style.transform = "translate(-18%, -25%)";
+
+  // Scale the cross to 80% of the heart’s width.
+  cross.style.fontSize = heartElement.clientWidth * 0.9 + "px";
+  // Append the cross into the container.
+  container.appendChild(cross);
+
+  // When the cross animation ends, remove it and hide the heart.
   cross.addEventListener("animationend", () => {
     cross.remove();
     heartElement.style.visibility = "hidden";
@@ -282,7 +292,7 @@ function handleRoundOutcome(result, humanChoice, computerChoice) {
 
         // Resume pulse animation on choice images.
         imgs.forEach((img) => img.classList.remove("paused"));
-        
+
         // Remove the anime-lines element.
         animeLines.remove();
       };
