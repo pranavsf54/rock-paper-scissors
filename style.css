@@ -1,121 +1,224 @@
 :root {
-    /* A red→orange→yellow gradient that complements red question marks and yellow emojis */
-    --bg-gradient: linear-gradient(135deg, #D32F2F 0%, #F57C00 40%, #FBC02D 100%);
-    --section-bg-color: rgba(255, 255, 255, 0.2); /* Translucent white overlay */
-    --text-color: #FFFFFF;                       /* White text for contrast */
+  /* A red→orange→yellow gradient that complements red question marks and yellow emojis */
+  --bg-gradient: linear-gradient(135deg, #d32f2f 0%, #f57c00 40%, #fbc02d 100%);
+  --section-bg-color: rgba(255, 255, 255, 0.2); /* Translucent white overlay */
+  --text-color: #ffffff; /* White text for contrast */
 }
 
 /* Base Styles */
 
 * {
-    box-sizing: border-box;
+  box-sizing: border-box;
 }
 
-html, body {
-    margin: 0;
-    padding: 0;
-    font-family: 'Poppins', sans-serif;
-    background: var(--bg-gradient);
-    color: var(--text-color);
-    overflow-x: hidden;
+html,
+body {
+  margin: 0;
+  padding: 0;
+  font-family: "Poppins", sans-serif;
+  background: var(--bg-gradient);
+  color: var(--text-color);
+  overflow-x: hidden;
 }
 
 #game {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
 }
 
 #score,
 #result,
 #choices {
-    width: 100vw;
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    background-color: var(--section-bg-color);
-    border-radius: 8px;
-    margin: 0.5rem;
-    padding: 1rem;
-    text-align: center;
+  width: 100vw;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--section-bg-color);
+  border-radius: 8px;
+  margin: 0.5rem;
+  padding: 1rem;
+  text-align: center;
 }
 
-#score h2, #result h2, #choices h2 {
-    margin-bottom: 0.5rem;
-    color: var(--text-color);
+#score h2,
+#result h2,
+#choices h2 {
+  margin-bottom: 0.5rem;
+  color: var(--text-color);
 }
 
 #score p {
-    margin-top: 0;
+  margin-top: 0;
 }
 
 #result-icons {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 1rem;
-    width: 100vw;
-    margin-top: -50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  width: 100vw;
+  margin-top: -50px;
 }
 
 #result-icons img {
-    /* Let the width scale between 80px and 150px, using 15% of the viewport width as the preferred size */
-    width: clamp(80px, 15vw, 150px);
-    height: auto;
-    display: block;
+  /* Let the width scale between 80px and 150px, using 15% of the viewport width as the preferred size */
+  width: clamp(80px, 15vw, 150px);
+  height: auto;
+  display: block;
 }
 
 #choices {
-    flex-direction: row;
+  flex-direction: row;
 }
 
 #choices img {
-    /* Let the width scale between 80px and 150px, using 15% of the viewport width as the preferred size */
-    width: clamp(80px, 15vw, 150px);
-    height: auto;
-    margin: 0 1rem;
-    cursor: pointer;
-    transition: transform 0.3s ease;
-    animation: pulse 0.5s infinite alternate;
+  /* Let the width scale between 80px and 150px, using 15% of the viewport width as the preferred size */
+  width: clamp(80px, 15vw, 150px);
+  height: auto;
+  margin: 0 1rem;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+  animation: pulse 0.5s infinite alternate;
 }
 
 /* Pause pulse animation when the .paused class is applied */
 #choices img.paused {
-    animation-play-state: paused;
+  animation-play-state: paused;
 }
 
 #choices img:hover {
-    transform: scale(1.1);
-    opacity: 0.7;
+  transform: scale(1.15);
 }
 
 .choice {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
 }
 
 #player-choice,
 #computer-choice {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 1rem;
-    justify-content: center;
-    text-align: center;
-    flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 1rem;
+  justify-content: center;
+  text-align: center;
+  flex: 1;
 }
 
 @keyframes pulse {
-    from {
-        scale: 1;
-    }
-    to {
-        scale: 1.1;
-    }
+  from {
+    scale: 1;
+  }
+  to {
+    scale: 1.1;
+  }
+}
+
+.wave {
+  display: inline-block;
+  animation: wave 0.9s ease infinite;
+}
+
+.wave-1 {
+  animation-delay: 0s;
+}
+.wave-2 {
+  animation-delay: 0.1s;
+}
+.wave-3 {
+  animation-delay: 0.2s;
+}
+.wave-4 {
+  animation-delay: 0.3s;
+}
+.wave-5 {
+  animation-delay: 0.4s;
+}
+.wave-6 {
+  animation-delay: 0.5s;
+}
+.wave-7 {
+  animation-delay: 0.6s;
+}
+.wave-8 {
+  animation-delay: 0.7s;
+}
+.wave-9 {
+  animation-delay: 0.8s;
+}
+
+@keyframes wave {
+  0% {
+    transform: translateY(0);
+    color: #0066ff; /* Bright blue */
+  }
+  25% {
+    tranform: (translateY(-2px));
+    color: #0088ff;
+  }
+  50% {
+    transform: translateY(-4px);
+    color: #33aaff; /* Lighter blue */
+  }
+  75% {
+    transform: (translateY(-2px));
+    color: #0088ff;
+  }
+  100% {
+    transform: translateY(0);
+    color: #0066ff;
+  }
+}
+
+/* Container for the surprised lines */
+.anime-lines {
+  position: absolute;
+  width: 40px;
+  height: 40px;
+  pointer-events: none;
+  /* Adjust these offsets in JS as needed */
+}
+
+/* Each line drawn as a small vertical bar */
+.anime-lines .line {
+  position: absolute;
+  bottom: 0;
+  width: 2px;
+  height: 20px;
+  background-color: #333; /* Dark gray for contrast */
+  animation: linePop 500ms ease-out forwards;
+}
+
+/* Three lines with different rotations */
+.anime-lines .line:nth-child(1) {
+  left: 10px;
+  transform: rotate(-30deg);
+}
+.anime-lines .line:nth-child(2) {
+  left: 18px;
+  transform: rotate(0deg);
+}
+.anime-lines .line:nth-child(3) {
+  left: 26px;
+  transform: rotate(30deg);
+}
+
+/* Animation for the lines */
+@keyframes linePop {
+  0% {
+    opacity: 1;
+    transform: scaleY(1) translateY(0);
+  }
+  100% {
+    opacity: 0;
+    transform: scaleY(1.5) translateY(-10px);
+  }
 }

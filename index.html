@@ -1,53 +1,72 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>rock-paper-scissors</title>
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap"
+    />
     <script src="script.js" defer></script>
-    <link rel="stylesheet" href="style.css">
-</head>
+    <link rel="stylesheet" href="style.css" />
+  </head>
 
-<body>
+  <body>
     <div id="game">
-        <div id="score">
-            <h2>Score</h2>
-            <p id="score-count">0</p>
-            <br>
-            <small>Scoring <b>10</b> or higher is impossible, unless you're the <i><b>chosen one</b></i></small>
+      <div id="score">
+        <h2>Score</h2>
+        <p id="score-count">0</p>
+        <br />
+        <small
+          >Scoring <b>10</b> or higher is impossible, unless you're the &nbsp;
+            <span class="wave wave-1">c</span>
+            <span class="wave wave-2">h</span>
+            <span class="wave wave-3">o</span>
+            <span class="wave wave-4">s</span>
+            <span class="wave wave-5">e</span>
+            <span class="wave wave-6">n</span>
+            &nbsp;
+            <span class="wave wave-7">o</span>
+            <span class="wave wave-8">n</span>
+            <span class="wave wave-9">e</span>
+        </small>
+      </div>
+      <div id="result">
+        <h2></h2>
+        <div id="result-icons">
+          <div id="player-choice">
+            <h3>You picked</h3>
+            <img
+              src="images/question-mark.svg"
+              alt="Question mark"
+              id="player-choice-img"
+            />
+          </div>
+          <div id="computer-choice">
+            <h3>CPU picked</h3>
+            <img
+              src="images/question-mark.svg"
+              alt="Question mark"
+              id="computer-choice-img"
+            />
+          </div>
         </div>
-        <div id="result">
-            <h2></h2>
-            <div id="result-icons">
-                <div id="player-choice">
-                    <h3>You picked</h3>
-                    <img src="images/question-mark.svg" alt="Question mark" id="player-choice-img">
-                </div>
-                <div id="computer-choice">
-                    <h3>CPU picked</h3>
-                    <img src="images/question-mark.svg" alt="Question mark" id="computer-choice-img">
-                </div>
-            </div>
-            <p id="result-text">Make your move</p>
+        <p id="result-text">Make your move</p>
+      </div>
+      <div id="choices">
+        <div class="choice">
+          <img src="images/rock.svg" alt="Rock" id="rock" />
         </div>
-        <div id="choices">
-            <div class="choice">
-                <img src="images/rock.svg" alt="Rock" id="rock">
-            </div>
-            <div class="choice">
-                <img src="images/paper.svg" alt="Paper" id="paper">
-            </div>
-            <div class="choice">
-                <img src="images/scissors.svg" alt="Scissors" id="scissors">
-            </div>
-            
-            
+        <div class="choice">
+          <img src="images/paper.svg" alt="Paper" id="paper" />
         </div>
+        <div class="choice">
+          <img src="images/scissors.svg" alt="Scissors" id="scissors" />
+        </div>
+      </div>
     </div>
-</body>
-
+  </body>
 </html>
