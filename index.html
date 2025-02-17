@@ -16,12 +16,10 @@
 
   <body>
     <div id="game">
-      <div id="score">
-        <h2>Score</h2>
-        <p id="score-count">0</p>
-        <br />
+      <div id="intro-text">
         <small
-          >Scoring <b>10</b> or higher is impossible, unless you're the &nbsp;
+          >Beating the CPU is impossible, unless you're the
+          <span class="nowrap-chosenone">
             <span class="wave wave-1">c</span>
             <span class="wave wave-2">h</span>
             <span class="wave wave-3">o</span>
@@ -32,7 +30,35 @@
             <span class="wave wave-7">o</span>
             <span class="wave wave-8">n</span>
             <span class="wave wave-9">e</span>
+          </span>
         </small>
+      </div>
+      <div id="score">
+        <div id="player-health">
+          <h2>Player</h2>
+          <div class="hearts">
+            <img src="images/heart.svg" alt="Heart" class="heart" />
+            <img src="images/heart.svg" alt="Heart" class="heart" />
+            <img src="images/heart.svg" alt="Heart" class="heart" />
+            <img src="images/heart.svg" alt="Heart" class="heart" />
+            <img src="images/heart.svg" alt="Heart" class="heart" />
+          </div>
+        </div>
+
+        <div id="reset-container">
+          <button id="reset-button">Reset Game</button>
+        </div>
+
+        <div id="computer-health">
+          <h2>Computer</h2>
+          <div class="hearts">
+            <img src="images/heart.svg" alt="Heart" class="heart" />
+            <img src="images/heart.svg" alt="Heart" class="heart" />
+            <img src="images/heart.svg" alt="Heart" class="heart" />
+            <img src="images/heart.svg" alt="Heart" class="heart" />
+            <img src="images/heart.svg" alt="Heart" class="heart" />
+          </div>
+        </div>
       </div>
       <div id="result">
         <h2></h2>
